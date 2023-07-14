@@ -1,6 +1,7 @@
  
  
 <script src="{{ asset("assets/js/jquery.js") }}" type="text/javascript"></script>
+<script src="{{ asset('assets/moment/moment.min.js') }}"></script>
 <html>
 	 
 		
@@ -72,7 +73,16 @@
 		                  <button type="button" id="btnSave"  class="btn btn-success" onclick="saveLicense();">Save</button>
 						</td>
 					</tr>
+
+                       <td>
+		                  <button type="button" id="btnupdate"  class="btn btn-success" onclick="updateLicence();">Update</button>
+						</td>
+					 
 				</table>
+
+               
+
+                
 
 						 
 
@@ -232,14 +242,15 @@
                     $('#ddloffice').val(data.office);
                     $('#txtlno').val(data.licence_no);
                     $('#txtlDate').val(moment(data.licence_date,'YYYY-MM-DD').format('DD-MM-YYYY'));
-                    $('#txtlname').val(moment(data.licence_name,'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    $('#txtlname').val(data.licence_name);
                     $('#txtaddr').val(data.licence_address);
                     $('#ddlltype').val(data.licence_type);
                     $('#row').val(id);
-                    var row_id = $('#row').val();
-                    if(row_id != ''){
-                        $("#btnSave").attr("onclick",'updateLicence('+row_id+')');
-                    }
+                    // var row_id = $('#row').val();
+                    
+                    // if(row_id != ''){
+                    //     $("#btnSave").attr("onclick",'updateLicence('+row_id+')');
+                    // }
                 },
                 error: function () {
 
@@ -249,7 +260,7 @@
  
 
       function updateLicence(id) {
-		 
+	
             var id=id;
 		    var off_name=$('#ddloffice').val();
 			var lic_no=$('#txtlno').val();

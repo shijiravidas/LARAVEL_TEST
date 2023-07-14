@@ -108,18 +108,14 @@ class LicenseController extends Controller
     {
              $input     = $request->all();
              $id        = $request->input('id');
-        //  var_dump($id);return;
             $lic            = Licence::findOrFail($id);
             $lic->office = $request->input('off_name');
             $lic->licence_no = $request->input('lic_no');
-             
             $lic->licence_date = date("Y-m-d", strtotime($request->input('lic_date')));
             $lic->licence_name = $request->input('lic_name');
             $lic->licence_address = $request->input('licence_address');
             $lic->licence_type = $request->input('lic_type');
             $lic->status = 1;
- 
-
             $lic->save();
             $data['message']     = 'updated successfully';
             $data['id']          = $lic->id;
