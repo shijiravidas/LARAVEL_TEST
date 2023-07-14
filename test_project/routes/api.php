@@ -20,7 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('v1/saveLicense', 'Test\LicenseController@saveLicense');
 Route::post('v1/getLicense', 'Test\LicenseController@getLicense');
-// Route::post('v1/deleteLicense', 'Test\LicenseController@deleteLicense');
-Route::delete('v1/deleteLicense/{id}', 'Test\LicenseController@destroy');
  
+Route::delete('v1/deleteLicense/{id}', 'Test\LicenseController@destroy');
+Route::get('v1/viewLicense/{id}', 'Test\LicenseController@index');
+Route::put('v1/updateLicense', 'Test\LicenseController@update');
  

@@ -131,27 +131,27 @@
 			});
 		}
 
-        function deleteLicense1($id) {
-         var id=$id;
+    //     function deleteLicense1($id) {
+    //      var id=$id;
 		 
-         $.ajax({
-                     url: '/api/v1/deleteLicense' ,
-                     method: 'post',
-                     dataType: 'json',
-                     data : {id:id },
-                     cache: false,
-                     crossDomain: true,
+    //      $.ajax({
+    //                  url: '/api/v1/deleteLicense' ,
+    //                  method: 'post',
+    //                  dataType: 'json',
+    //                  data : {id:id },
+    //                  cache: false,
+    //                  crossDomain: true,
                  
-                     success: function (data) {
-                        alert("deleted succesfully");
-                        getLicense();
-                     },
-                     error: function () {
+    //                  success: function (data) {
+    //                     alert("deleted succesfully");
+    //                     getLicense();
+    //                  },
+    //                  error: function () {
 
-                     }
-                 });
+    //                  }
+    //              });
 
-     }
+    //  }
 
      function deleteLicense(id){
  
@@ -200,7 +200,8 @@
                                         +'<td>'+data[i].licence_name+'</td>'
                                         +'<td>'+data[i].licence_address+'</td>'
                                         +'<td>'+data[i].licence_type+'</td>'
-                                        +'<td> <button type="button" id="btnSave"  class="btn btn-success" onclick="editLicense('+data[i].id+');">edit</button></td>' +'</td>'
+                                        +'<td> <button type="button" id="btnSave"  class="btn btn-success" onclick="viewLince('+data[i].id+');">edit</button></td>' +'</td>'
+                                       
                                         +'<td> <button type="button" id="btnSave"  class="btn btn-success" onclick="deleteLicense('+data[i].id+');">delete</button></td>' +'</td>'
                                         +'</tr>');
 								i++;j++;}
@@ -214,37 +215,67 @@
 			
 		}
 
-		function editLicense(data) {
-			alert(data);
-			$('#txtcustomer').val();
-			$('#txtaddr').val( );
-			var cust_name=$('#txtcustomer').val();
-			var cust_addr=$('#txtaddr').val();
-			$.ajax({
-						url: '/api/v1/updateCustomer' ,
-						method: 'post',
-						dataType: 'json',
-						cache: false,
-						data : {cust_name:cust_name ,cust_addr:cust_addr,id:id},
-						crossDomain: true,
-					
-						success: function () {
-							getCustomer();
-						},
-						error: function () {
+		 
 
-						}
-					});
+        function viewLince(id)
+	     {
+            
+            $.ajax({
+                url: '/api/v1/viewLicense/' + id,
+                method: 'get',
+                dataType: 'json',
+                cache: false,
+                crossDomain: true,
 
-		}
+                success: function (data) {
+                    
+                    $('#ddloffice').val(data.office);
+                    $('#txtlno').val(data.licence_no);
+                    $('#txtlDate').val(moment(data.licence_date,'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    $('#txtlname').val(moment(data.licence_name,'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    $('#txtaddr').val(data.licence_address);
+                    $('#ddlltype').val(data.licence_type);
+                    $('#row').val(id);
+                    var row_id = $('#row').val();
+                    if(row_id != ''){
+                        $("#btnSave").attr("onclick",'updateLicence('+row_id+')');
+                    }
+                },
+                error: function () {
 
-        
+                }
+            });
+	  }
+ 
 
-		// function form_reset() {
-
-		// 	$('#txtcustomer').val('');
-		// 	$('#txtaddr').val('');
-	    // }
+      function updateLicence(id) {
+		 
+            var id=id;
+		    var off_name=$('#ddloffice').val();
+			var lic_no=$('#txtlno').val();
+            var lic_date=$('#txtlDate').val();
+            var lic_name=$('#txtlname').val();
+            var lic_addr=$('#txtaddr').val();
+            var lic_type=$('#ddlltype').val();
+ 
+		$.ajax({
+			url : '/api/v1/updateLicense',
+			method: 'put',
+			dataType: 'json',
+			cache: false,
+			crossDomain: true,
+			 
+            data : {id:id ,off_name:off_name ,lic_no:lic_no,lic_date:lic_date,lic_name:lic_name,lic_addr:lic_addr,lic_type:lic_type},
+			success:function (data) {  
+                alert("updated succesfully");
+                getLicense();
+                
+			},
+			error: function(data) { alert("n");
+				errorAlert(data);
+			}
+		});
+	}
 
  </script>
 

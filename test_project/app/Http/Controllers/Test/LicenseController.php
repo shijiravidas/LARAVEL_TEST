@@ -9,6 +9,23 @@ use Illuminate\Support\Facades\DB;
 
 class LicenseController extends Controller
 {
+
+
+    public function index($id = null)
+    {
+        if ($id == null) {
+            $data  = Licence::where('status','<',4)->orderBy('id', 'asc')->get();
+            return response($data, 200);
+        } else {
+            $data  = $this->show($id);
+            return response($data, 200);
+        }
+    }
+
+    public function show($id)
+    {
+        return Licence::find($id);
+    }
     public function saveLicense(Request $request)
     {
         $input     = $request->all();
@@ -87,21 +104,27 @@ class LicenseController extends Controller
 
      
 
-     public function updateLicense(Request $request)
+     public function update(Request $request)
     {
-        $input     = $request->all();
-        $id        = $request->input('id');
-        dd( $input );
-         
-            $lc       = Licence::findOrFail($id);
-            $lc->office = $request->input('office');
-            
-            
-            $lc->save();
+             $input     = $request->all();
+             $id        = $request->input('id');
+        //  var_dump($id);return;
+            $lic            = Licence::findOrFail($id);
+            $lic->office = $request->input('off_name');
+            $lic->licence_no = $request->input('lic_no');
+             
+            $lic->licence_date = date("Y-m-d", strtotime($request->input('lic_date')));
+            $lic->licence_name = $request->input('lic_name');
+            $lic->licence_address = $request->input('licence_address');
+            $lic->licence_type = $request->input('lic_type');
+            $lic->status = 1;
+ 
+
+            $lic->save();
             $data['message']     = 'updated successfully';
-            
+            $data['id']          = $lic->id;
             return \Response::json($data, 200);
-         
+        
     }
      
 }
