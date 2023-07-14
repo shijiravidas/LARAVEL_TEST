@@ -275,8 +275,7 @@
 			dataType: 'json',
 			cache: false,
 			crossDomain: true,
-			 
-            data : {id:id ,off_name:off_name ,lic_no:lic_no,lic_date:lic_date,lic_name:lic_name,lic_addr:lic_addr,lic_type:lic_type},
+			data : {id:id ,off_name:off_name ,lic_no:lic_no,lic_date:lic_date,lic_name:lic_name,lic_addr:lic_addr,lic_type:lic_type},
 			success:function (data) {  
                 alert("updated succesfully");
                 getLicense();

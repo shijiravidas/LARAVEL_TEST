@@ -106,8 +106,10 @@ class LicenseController extends Controller
 
      public function update(Request $request)
     {
+        
              $input     = $request->all();
              $id        = $request->input('id');
+             
             $lic            = Licence::findOrFail($id);
             $lic->office = $request->input('off_name');
             $lic->licence_no = $request->input('lic_no');
