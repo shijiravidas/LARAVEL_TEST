@@ -1,0 +1,14 @@
+table .header-fixed {
+  position: fixed;
+  /*top: 50px;*/
+  /* customized top to fit our site layout */
+  top: 0px;
+  /*left: 0;*/
+  /*right: 0;*/
+  z-index: 1020; /* 10 less than .navbar-fixed to prevent any overlap */
+
+}
+thead {
+  background-color: #eaeaea;
+}
+
