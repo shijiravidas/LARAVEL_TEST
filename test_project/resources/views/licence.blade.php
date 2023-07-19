@@ -74,9 +74,9 @@
 						</td>
 					</tr>
 
-                       <td>
+                       <!-- <td>
 		                  <button type="button" id="btnupdate"  class="btn btn-success" onclick="updateLicence();">Update</button>
-						</td>
+						</td> -->
 					 
 				</table>
 
@@ -241,16 +241,16 @@
                     
                     $('#ddloffice').val(data.office);
                     $('#txtlno').val(data.licence_no);
-                    $('#txtlDate').val(moment(data.licence_date,'YYYY-MM-DD').format('DD-MM-YYYY'));
+                    $('#txtlDate').val(moment(data.licence_date,'YYYY-MM-DD').format('DD/MM/YYYY'));
                     $('#txtlname').val(data.licence_name);
                     $('#txtaddr').val(data.licence_address);
                     $('#ddlltype').val(data.licence_type);
                     $('#row').val(id);
-                    // var row_id = $('#row').val();
+                    var row_id = $('#row').val();
                     
-                    // if(row_id != ''){
-                    //     $("#btnSave").attr("onclick",'updateLicence('+row_id+')');
-                    // }
+                    if(row_id != ''){
+                        $("#btnSave").attr("onclick",'updateLicence('+row_id+')');
+                    }
                 },
                 error: function () {
 
@@ -260,7 +260,7 @@
  
 
       function updateLicence(id) {
-	
+	 console.log(id);
             var id=id;
 		    var off_name=$('#ddloffice').val();
 			var lic_no=$('#txtlno').val();
@@ -276,6 +276,7 @@
 			cache: false,
 			crossDomain: true,
 			data : {id:id ,off_name:off_name ,lic_no:lic_no,lic_date:lic_date,lic_name:lic_name,lic_addr:lic_addr,lic_type:lic_type},
+
 			success:function (data) {  
                 alert("updated succesfully");
                 getLicense();
